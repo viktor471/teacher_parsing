@@ -36,12 +36,6 @@ def get_logger(logger_name: str, level, handler_type: Output, filename = None):
     return logger
 
 
-unloaded_values = get_logger("unloaded_values", logging.WARNING, Output.ConsoleAndFileOutput,
-                             "logs/unloaded_values.log")
-
-errors   = get_logger("errors",   logging.ERROR,   Output.ConsoleAndFileOutput, "logs/errors.log")
-warnings = get_logger("warnings", logging.WARNING, Output.ConsoleAndFileOutput, "logs/warnings.log")
-
 @contextmanager
 def catch_errors_to_log(logger):
     try:
