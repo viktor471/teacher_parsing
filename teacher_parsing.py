@@ -89,7 +89,7 @@ def parse_teachers():
                 if not wrong_element.text:
                     name_of_wrong_field_xpath = "../../../preceding-sibling::td"
                     description = wrong_element.find_element(By.XPATH, name_of_wrong_field_xpath).text
-                    unloaded_values.info(f"Пустое поле '{description}' у преподавателя '{teacher['name']}'")
+                    unloaded_values.warning(f"Пустое поле '{description}' у преподавателя '{teacher['name']}'")
 
 
         stars = wiki_table.find_elements(By.XPATH, template)
