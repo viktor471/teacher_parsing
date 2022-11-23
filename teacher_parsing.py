@@ -72,7 +72,7 @@ def parse_teachers():
         ths = wiki_table.find_elements(By.XPATH, "//th[not(contains(@colspan, '2'))]")
 
         for th in ths:
-            with catch_errors_to_log(errors):
+            with catch_errors_to_log(errors, driver.title):
                 td = th.find_element(By.XPATH, "./following-sibling::td")
                 name = th.text
                 value = td.text
