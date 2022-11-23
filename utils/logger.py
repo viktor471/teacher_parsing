@@ -37,8 +37,8 @@ def get_logger(logger_name: str, level, handler_type: Output, filename = None):
 
 
 @contextmanager
-def catch_errors_to_log(logger):
+def catch_errors_to_log(logger, msg):
     try:
         yield
     except WebDriverException as ex:
-        logger.error(f"{ex}")
+        logger.error(f"{ex} {msg}")
