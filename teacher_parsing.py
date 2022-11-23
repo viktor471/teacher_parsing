@@ -6,7 +6,7 @@ from logging import ERROR, WARNING
 import logging
 
 unloaded_values = get_logger("unloaded_values", WARNING, Output.ConsoleAndFileOutput,
-                  "logs/unloaded_values.log")
+                             "logs/unloaded_values.log")
 
 errors   = get_logger("errors",   ERROR,   Output.ConsoleAndFileOutput, "logs/errors.log")
 warnings = get_logger("warnings", WARNING, Output.ConsoleAndFileOutput, "logs/warnings.log")
@@ -44,7 +44,10 @@ def parse_teachers():
     waiter = Waiter(logger=unloaded_values, driver=driver)
     driver.get("https://wiki.mipt.tech")
 
-    xpath = "//a[contains(@title, 'Кафедра') or contains(@title, 'Высшая школа системного') or contains(@title, 'Военная')]"
+    xpath = "//a[contains(@title, 'Кафедра') or " \
+            "    contains(@title, 'Высшая школа системного') or " \
+            "    contains(@title, 'Военная')] "
+
     department_elements = driver.find_elements(By.XPATH, xpath)
 
     departments = [el.get_attribute("href") for el in department_elements
