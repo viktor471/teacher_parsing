@@ -11,7 +11,6 @@ unloaded_values = get_logger("unloaded_values", WARNING, Output.ConsoleAndFileOu
 
 errors   = get_logger("errors",   ERROR,   Output.ConsoleAndFileOutput, "logs/errors.log")
 warnings = get_logger("warnings", WARNING, Output.ConsoleAndFileOutput, "logs/warnings.log")
-
 def parse_teachers():
     teacher_links = []
 
