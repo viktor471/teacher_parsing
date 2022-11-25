@@ -1,5 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+
 from utils.logger import catch_errors_to_log, get_logger, Output
 from utils.wait_visibilty import Waiter
 from logging import ERROR, WARNING
@@ -39,7 +41,9 @@ def parse_teachers():
 
         return key_
 
-    driver = webdriver.Firefox()
+    service = Service(executable_path="./drivers/chromedriver")
+    driver = webdriver.Chrome(service=service)
+
     waiter = Waiter(logger=unloaded_values, driver=driver)
     driver.get("https://wiki.mipt.tech")
 
