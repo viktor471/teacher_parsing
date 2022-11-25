@@ -60,10 +60,15 @@ def parse_teachers():
         current_teachers_div_xpath = "//span[text()='Преподаватели кафедры']/parent::h2/following-sibling::div"
         current_teachers_div = driver.find_element(By.XPATH, current_teachers_div_xpath)
 
-        for teacher_element in current_teachers_div.find_elements(By.XPATH, "//div[contains(@class, 'gallerytext')]"
-                                                                            "/p/a"):
-            teacher_links.append(teacher_element.get_attribute("href"))
+        class_attribute = current_teachers_div.get_attribute("class")
 
+        if class_attribute:
+            teacher_elements = current_teachers_div.find_elements(By.XPATH, "//div[contains(@class, 'gallerytext')]/p/a")
+        else:
+            teacher_elements = current_teachers_div.find_elements(By.TAG_NAME, "a")
+
+        for teacher_element in teacher_elements:
+            teacher_links.append(teacher_element.get_attribute("href"))
 
     for teacher_link in teacher_links:
         driver.get(teacher_link)
