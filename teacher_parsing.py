@@ -3,7 +3,6 @@ from selenium import webdriver
 from utils.logger import catch_errors_to_log, get_logger, Output
 from utils.wait_visibilty import Waiter
 from logging import ERROR, WARNING
-import logging
 
 unloaded_values = get_logger("unloaded_values", WARNING, Output.ConsoleAndFileOutput,
                              "logs/unloaded_values.log")
