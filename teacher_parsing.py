@@ -5,16 +5,22 @@ from selenium.webdriver.chrome.service import Service
 from utils.logger import catch_errors_to_log, get_logger, Output
 from utils.wait_visibilty import Waiter
 from logging import ERROR, WARNING
+from utils.work_with_csv import CsvWriter
 
 unloaded_values = get_logger("unloaded_values", WARNING, Output.ConsoleAndFileOutput,
                              "logs/unloaded_values.log")
 
 errors   = get_logger("errors",   ERROR,   Output.ConsoleAndFileOutput, "logs/errors.log")
 warnings = get_logger("warnings", WARNING, Output.ConsoleAndFileOutput, "logs/warnings.log")
-def parse_teachers():
-    teacher_links = []
 
-    teachers = {}
+
+def parse_teachers(filename: str):
+    """
+    :param filename: название файла csv с результатом парсинга
+    :return: None
+    """
+    csv_file = CsvWriter(filename)
+    teacher_links = []
 
     english_keys = {"Имя":                "name",
                     "Альма-матер":        "alma_mater",
@@ -102,7 +108,6 @@ def parse_teachers():
                     description = wrong_element.find_element(By.XPATH, name_of_wrong_field_xpath).text
                     unloaded_values.warning(f"Пустое поле '{description}' у преподавателя '{teacher['name']}'")
 
-
         stars = wiki_table.find_elements(By.XPATH, template)
 
         for star in stars:
@@ -116,14 +121,12 @@ def parse_teachers():
             key = get_eng_key(description)
             teacher[key] = score
 
-        print(teacher)
-        teachers[name] = teacher
+        csv_file.append_to_csv(teacher)
+        csv_file.flush()
 
-    print(teachers)
-
-    input()
     driver.quit()
 
 
 if __name__ == "__main__":
-    parse_teachers()
+    # TODO генерировать имя по дате
+    parse_teachers("csv/parsed.csv")
