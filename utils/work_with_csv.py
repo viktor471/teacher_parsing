@@ -11,7 +11,7 @@ class CsvWriter:
             self._append_iterable_to_csv(headers)
 
     def _append_iterable_to_csv(self, iterable: list | tuple ):
-        joined = ",".join(str(el) for el in iterable)
+        joined = ";".join(str(el) for el in iterable)
         self._file.write(f"{joined}\n")
 
 
