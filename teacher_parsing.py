@@ -78,8 +78,11 @@ def parse_teachers(filename: str):
 
     for teacher_link in teacher_links:
         driver.get(teacher_link)
+        teacher = {}
+        for key in english_keys.values():
+            teacher[key] = ""
 
-        teacher = {"name": driver.find_element(By.TAG_NAME, 'h1').text}
+        teacher["name"] = driver.find_element(By.TAG_NAME, 'h1').text
 
         wiki_table = driver.find_element(By.XPATH, "//table[contains(@class, 'wikitable')]")
 
